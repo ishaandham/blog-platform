@@ -1,0 +1,172 @@
+/*!My first initial styles -- color scheme tovibrant for regular usage*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+}
+
+:root {
+    --black: #141217ff;
+    --blue: #28587bff;
+    --brown: rgb(83, 74, 67);
+    --light-brown: rgba(124, 115, 115, 0.226);
+    --green: rgb(162, 189, 162);
+    --sidebar-width: 13vw
+}
+
+@media only screen and (min-width: 900px) {
+    .page-container {
+        display: flex;
+        flex-direction: row;
+    }
+
+    /*?Nav styles start*/
+
+    nav {
+        /*we will need a hamburger pop out for mobile*/
+        width: var(--sidebar-width);
+        resize: horizontal;
+        /*!need to do js to make this proper*/
+        /*border-right: 10px solid var(--brown);
+        border-top: 10px solid var(--brown);
+        border-right: 10px solid var(--brown);
+        border-bottom: 10px solid var(--brown);*/
+        border-radius: 2.5%;
+        height: 100%;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        position: fixed;
+        top: 10px;
+        left: -10px;
+        padding-top: 20px;
+        padding-left: 10px;
+        box-shadow: 0 0 0 9px var(--brown);
+        background-color: var(--light-brown);
+    }
+
+    nav .nav-outer-container {
+        z-index: 9;
+        margin-top: -17px;
+        margin-left: 1px;
+        margin-bottom: 2vh;
+        /*padding: 5px;*/
+    }
+
+    .nav-button {
+        background-color: var(--green);
+        /* Green */
+        border: none;
+        border-radius: 3%;
+        color: white;
+
+        width: 100%;
+        text-align: left;
+        text-decoration: none;
+        display: block;
+        cursor: pointer;
+        padding: 10px 1vw 15px 1vw;
+
+    }
+
+    .nav-button:hover {
+        color: var(--blue);
+    }
+
+    #filter-button {
+        margin-top: -22px;
+        padding: 25px 0;
+        font-weight: 700;
+        font-size: 2.5rem;
+        text-align: center;
+
+    }
+
+
+    .nav-content-container {
+        /*border-top: 10px solid var(--brown);*/
+
+    }
+
+    .article-button {
+        margin-bottom: .5vh;
+        width: 105%;
+    }
+
+    .article-button-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .article-button-author {
+        font-size: .8rem;
+        font-weight: 500;
+    }
+
+    .article-button-date {
+        font-size: .6rem;
+        font-weight: 400;
+
+    }
+
+    .no-posts-p {
+        font-size: .8rem;
+        font-weight: 500;
+        padding: 10px;
+        text-align: center;
+        color: var(--brown);
+
+    }
+
+    /*?Nav styles end*/
+    .nav-to-content-seperator {
+        margin-left: var(--sidebar-width);
+        width: 3vw;
+    }
+
+    .main {}
+
+    iframe {
+        overflow-y: visible;
+        width: 100%;
+    }
+}
+
+/* ?Desktop and larger ends*/
+
+/* !hide scrollbar but allow scrolling */
+nav {
+    -ms-overflow-style: none;
+    /* for Internet Explorer, Edge */
+    scrollbar-width: none;
+    /* for Firefox */
+    overflow-y: scroll;
+}
+
+nav::-webkit-scrollbar {
+    display: none;
+    /* for Chrome, Safari, and Opera */
+}
+
+
+/*!sexy scrollbar*/
+
+#style-1::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #555;
+}
