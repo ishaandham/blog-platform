@@ -500,21 +500,23 @@
 <body>
 
     <article>
-        <!-- we will use this comment to store meta info
-{
-    "title": "Some analysis" ,
-    "author": "Matan",
-    "tags": ["Analysis", "topology"]
-}
--->
-<p>I claim that yes! there does exist such a function (which was not actually my first intuition). Here is the construction:
-\begin{itemize}
-\item Let all $f(q) =0$ for all $q\in{}(-\sqrt{2},\sqrt{2})$
-\item Let $f(q)=i\in{}$\ints$^+$ for all $q\in{}(i*\sqrt{2},(i+1)<em>\sqrt{2})$
-\item Let $f(q)=i\in{}$\ints$^-$ for all $q\in{}((i+1)</em>\sqrt{2},i*\sqrt{2})$
-\end{itemize}</p>
-<p>Clearly this function is from \rats{} to \ints{} and is also clearly onto. Let us prove cont. using the sequencial defn. Let \seq{q}$\subseteq $\rats{} be a convergent sequence, converging to $q$. $q$ is in one of the invtervals we set up, since those intervals cover all of $q$. Moreover, it’s in only on interval, since the intervals are disjoint. WLOG, assume $q\in{}((i*\sqrt{2},(i+1)*\sqrt{2})$ for some $i\in{}\mathbb{Z}^+$.</p>
-<p>Then, take $\rho=\mathrm{min}{|q-i*\sqrt{2}|,|(i+1)*\sqrt{2}|}$. Due to the convergence of \seq{q}, we can find $N$ s.t for $n&gt;N$ $|q_n-q|&lt;\rho$. Then let $\epsilon&gt;0$ be given arbitarly and let $\delta=\rho$. It is satisfied that $0=|f(q_n)-f(q)|&lt;\epsilon$ for all $|q_n-q|&lt;\rho{}$. Thus, $f$ is cont. and the proof is complete.</p>
+        <!--{
+    "title": "JWT Authentication" ,
+    "author": "Ishaan",
+    "tags": ["web", "webdev", "jwt", "authentication"]
+}-->
+<h1 id="json-web-token-(jwt)">Json Web Token (JWT) <a class="heading-anchor-permalink" href="#json-web-token-(jwt)">#</a></h1>
+<p>A token holding JSON that asserts claims (statements about entity) and can be signed and encrypted.</p>
+<p>It is commonly used in authentication and avoids sending credentials on every request. A JWT is created by the server and signed using a ‘secret key’. The user of the service can then use this JWT to gain access to authenticated endpoints.</p>
+<h2 id="jwt-structure">JWT Structure <a class="heading-anchor-permalink" href="#jwt-structure">#</a></h2>
+<pre><code>xxxxx.yyyyy.zzzzz
+</code></pre>
+<p>A JWT consists of three parts:</p>
+<ul>
+<li>Header - Consists of type of token and signing algorithm (RSA, SHA256)</li>
+<li>Payload - Consists of “Claims”. Claims are statements about the user and more details.</li>
+<li>Signature - Signature part takes the encoded header, payload and secret and uses an algorithm to sign it.</li>
+</ul>
 
     </article>
 </body>

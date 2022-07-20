@@ -1,30 +1,21 @@
 {
-  "name": "tex-blog",
+  "name": "blog-platform",
   "version": "1.0.0",
-  "description": "A slick-lookin' no-backend LaTeX-based blog!",
-  "main": "index.js",
+  "description": "Simple blogging platform",
+  "main": "main.js",
   
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "markdown-folder-to-html"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GnarlyMshtep/TexXBlog.git"
-  },
   "keywords": [
     "LaTeX",
     "Blog"
   ],
-  "author": "Matan Shtepel",
+  "author": "Ishaan Dham",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/GnarlyMshtep/TexXBlog/issues"
-  },
-  "homepage": "https://github.com/GnarlyMshtep/TexXBlog#readme",
   "dependencies": {
     "edit-json-file": "^1.6.0",
-    "inquirer": "^8.1.3",
     "live-server": "^1.2.1",
     "markdown-folder-to-html": "^2.4.0",
     "node-fetch": "^3.0.0"

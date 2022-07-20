@@ -1,5 +1,5 @@
 <!--{
-    "title": "Go" ,
+    "title": "Golang Basics" ,
     "author": "Ishaan",
     "tags": ["Go", "Golang", "Programming Language"]
 }-->
