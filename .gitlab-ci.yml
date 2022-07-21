@@ -8,9 +8,11 @@
 pages:
   stage: deploy
   script:
+    - mkdir public
+    - mv -r frontend public
     - echo "The site will be deployed to $CI_PAGES_URL"
   artifacts:
     paths:
-      - frontend
+      - public
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
