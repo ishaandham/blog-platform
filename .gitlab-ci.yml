@@ -9,7 +9,9 @@ pages:
   stage: deploy
   script:
     - mkdir public
-    - cp -r frontend/* public
+    - mv frontend/* public
+    - mv _docs public
+    - mv config.json public
     - echo "The site will be deployed to $CI_PAGES_URL"
   artifacts:
     paths:
