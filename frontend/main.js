@@ -81,7 +81,7 @@ async function main() {
             // path doesn't work in safari and firefox.
             var _path = clicked.path || (clicked.composedPath && clicked.composedPath());
             if (_path[1].id) {
-                Iframe.src = "../_docs/" + jsonData.posts[_path[1].id].filename;
+                Iframe.src = "./" + jsonData.posts[_path[1].id].filename;
                 Iframe.onload = () => {
                     adjustFrameHeight(Iframe);
                 }
@@ -110,7 +110,13 @@ async function main() {
  * Function loads the latest blog in the iframe.
  */
 function loadLastBlogPost(jsonData) {
-    document.getElementById('Iframe').src = '../_docs/' + jsonData.posts[jsonData.posts.length - 1].filename
+    document.getElementById('Iframe').src = './' + jsonData.posts[jsonData.posts.length - 1].filename
+}
+
+
+function loadIframeWithBlog() {
+    window.location.sear
+    window.location.search = 'param=value'; // or param=new_value
 }
 
 /**
