@@ -80,9 +80,6 @@ async function main() {
         navContentContainer.addEventListener('click', (clicked) => {
             // path doesn't work in safari and firefox.
             var _path = clicked.path || (clicked.composedPath && clicked.composedPath());
-            console.log("clicked path", clicked.path)
-            console.log("firefox path: ", clicked.composedPath)
-            console.log("firefox path 2: ", clicked.composedPath()) 
             if (_path[1].id) {
                 Iframe.src = "./" + jsonData.posts[_path[1].id].filename;
                 Iframe.onload = () => {
@@ -114,6 +111,12 @@ async function main() {
  */
 function loadLastBlogPost(jsonData) {
     document.getElementById('Iframe').src = './' + jsonData.posts[jsonData.posts.length - 1].filename
+}
+
+
+function loadIframeWithBlog() {
+    window.location.sear
+    window.location.search = 'param=value'; // or param=new_value
 }
 
 /**
