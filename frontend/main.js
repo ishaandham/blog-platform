@@ -220,6 +220,7 @@ const populateNavbar = (posts, filter = null) => {
     // change the query string
     let queryString = ""
     for (word of keyWords) {
+        word = word.replaceAll(' ', '-');
         queryString += word + ":"
     }
     queryString = queryString.slice(0, queryString.length - 1)
@@ -243,6 +244,12 @@ const populateHeaderLinks = (links, headerLinksContainer) => {
     }
 }
 
+
+function isValidWord(word) {
+    const arr = word.match(/^[\w !-]*$/)
+    return arr != null
+}
+
 /**
  * Function reads the query string and updates the 
  * keyWords array and filter keywords UI.
@@ -251,18 +258,15 @@ const readQueryString = () => {
     keyWords = []
     const params = new URLSearchParams(window.location.search);
     // checks for valid value of query string param "filter"
-    function isValidWord(word) {
-        const arr = word.match(/^[\w !-]*$/)
-        return arr != null
-    }
     if (params.has('filter')) {
         const wordsStr = params.get('filter')
         const words = wordsStr.split(':')
         // add words to filter
         for (const word of words) {
+            word = word.replace('+', ' ')
             if (isValidWord(word)) {
                 if (keyWords.length <= NUM_KEYWORDS) {
-                    keyWords.push(word.toLowerCase())
+                    keyWords.push(word)
                 } else {
                     alert("No more keywords can be added")
                 }
@@ -382,8 +386,12 @@ function updateKeywords() {
     let text = document.getElementById('filter-search-bar').value
     if (text != "") {
         // Limit the number of keywords to NUM_KEYWORDS.
+        if (!isValidWord(text)) {
+            alert("Invalid keyword") 
+            return
+        }
         if (keyWords.length <= NUM_KEYWORDS) {
-            keyWords.push(text.toLowerCase())
+            keyWords.push(text)
         } else {
             alert("No more keywords can be added")
         }
@@ -405,7 +413,7 @@ function populateFilterTags() {
         // create a <li> with <span> for close 'X'
         let node = document.createElement("li");
         // limit display of tag to 10 chars
-        let tagNode = document.createTextNode(tag.substring(0, 11).toLowerCase());
+        let tagNode = document.createTextNode(tag.substring(0, 11));
         let span = document.createElement('span');
         span.innerHTML = "&times";
         // Onclick function deletes the keyword and re-populates the tags.
@@ -435,10 +443,10 @@ const filterPosts = () => {
         posts.forEach((post) => {
             // keywords of post
             postKeywords = new Set();
-            postKeywords.add(post.title.toLowerCase());
-            postKeywords.add(post.author.toLowerCase());
+            postKeywords.add(post.title);
+            postKeywords.add(post.author);
             post.tags.forEach((tag) => {
-                postKeywords.add(tag.toLowerCase())
+                postKeywords.add(tag)
             })
             hasAllKeywords = true;
             for (let i = 0; i < keyWords.length; i++) {

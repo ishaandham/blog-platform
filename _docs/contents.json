@@ -7,6 +7,10 @@
     {
       "type": "file",
       "value": "JWT.md"
+    },
+    {
+      "type": "file",
+      "value": "docker.md"
     }
   ],
   "contents": [
@@ -23,6 +27,13 @@
       "content": "<!--{\n    \"title\": \"JWT Authentication\" ,\n    \"author\": \"Ishaan\",\n    \"tags\": [\"web\", \"webdev\", \"jwt\", \"authentication\"]\n}-->\n# Json Web Token (JWT)\n\nA token holding JSON that asserts claims (statements about entity) and can be signed and encrypted.\n\nIt is commonly used in authentication and avoids sending credentials on every request. A JWT is created by the server and signed using a 'secret key'. The user of the service can then use this JWT to gain access to authenticated endpoints.\n\n## JWT Structure\n```\nxxxxx.yyyyy.zzzzz\n```\n\nA JWT consists of three parts:\n\n* Header - Consists of type of token and signing algorithm (RSA, SHA256)\n* Payload - Consists of \"Claims\". Claims are statements about the user and more details.\n* Signature - Signature part takes the encoded header, payload and secret and uses an algorithm to sign it.\n\n\n\n\n",
       "html": "<!--{\n    \"title\": \"JWT Authentication\" ,\n    \"author\": \"Ishaan\",\n    \"tags\": [\"web\", \"webdev\", \"jwt\", \"authentication\"]\n}-->\n<h1 id=\"json-web-token-(jwt)\">Json Web Token (JWT) <a class=\"heading-anchor-permalink\" href=\"#json-web-token-(jwt)\">#</a></h1>\n<p>A token holding JSON that asserts claims (statements about entity) and can be signed and encrypted.</p>\n<p>It is commonly used in authentication and avoids sending credentials on every request. A JWT is created by the server and signed using a ‘secret key’. The user of the service can then use this JWT to gain access to authenticated endpoints.</p>\n<h2 id=\"jwt-structure\">JWT Structure <a class=\"heading-anchor-permalink\" href=\"#jwt-structure\">#</a></h2>\n<pre><code>xxxxx.yyyyy.zzzzz\n</code></pre>\n<p>A JWT consists of three parts:</p>\n<ul>\n<li>Header - Consists of type of token and signing algorithm (RSA, SHA256)</li>\n<li>Payload - Consists of “Claims”. Claims are statements about the user and more details.</li>\n<li>Signature - Signature part takes the encoded header, payload and secret and uses an algorithm to sign it.</li>\n</ul>\n",
       "id": 1
+    },
+    {
+      "path": "docker.md",
+      "url": "docker.html",
+      "content": "<!--{\n    \"title\": \"docker\" ,\n    \"author\": \"Ishaan\",\n    \"tags\": [\"docker\", \"deployment\", \"containers\"]\n}-->\n\n# Description of Docker\n\n# Definitions\n\n**Image** : An image is a lightweight, stand-alone, executable package that includes everything needed to run a piece of software, including the code, a runtime, libraries, environment variables, and config files. \\\n\n**Container** : A container is a runtime instance of an image—what the image becomes in memory when actually executed. It runs completely isolated from the host environment by default, only accessing host files and ports if configured to do so. \\",
+      "html": "<!--{\n    \"title\": \"docker\" ,\n    \"author\": \"Ishaan\",\n    \"tags\": [\"docker\", \"deployment\", \"containers\"]\n}-->\n<h1 id=\"description-of-docker\">Description of Docker <a class=\"heading-anchor-permalink\" href=\"#description-of-docker\">#</a></h1>\n<h1 id=\"definitions\">Definitions <a class=\"heading-anchor-permalink\" href=\"#definitions\">#</a></h1>\n<p><strong>Image</strong> : An image is a lightweight, stand-alone, executable package that includes everything needed to run a piece of software, including the code, a runtime, libraries, environment variables, and config files. \\</p>\n<p><strong>Container</strong> : A container is a runtime instance of an image—what the image becomes in memory when actually executed. It runs completely isolated from the host environment by default, only accessing host files and ports if configured to do so. \\</p>\n",
+      "id": 2
     }
   ]
 }
