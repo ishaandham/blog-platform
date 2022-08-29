@@ -1,6 +1,5 @@
 # Blog Platform
 
-Simple blogging platform. 
-
+Simple blogging platform
 
 
