@@ -1,6 +1,7 @@
 // Variables
 var posts = []
 var keyWords = []
+var filteredPosts = []
 
 // Constants
 const MAX_TITLE_LENGTH = 20;
@@ -27,15 +28,15 @@ async function main() {
      * Make injections from the JSON file to make the page customizable + set up event listeners. 
      */
     function windowLoaded() {
+        // create global variable array of posts (used in filter process)
+        posts = jsonData.posts;
+
         // load the latest post
-        loadLastBlogPost(jsonData);
+        loadLastBlogPost(posts);
 
         // fix Iframe height
         const Iframe = document.querySelector("Iframe");
         adjustFrameHeight(Iframe);
-
-        // create global variable array of posts (used in filter process)
-        posts = jsonData.posts;
 
         //fix the colors
         fixColors(jsonData.colors);
@@ -81,12 +82,9 @@ async function main() {
             // path doesn't work in safari and firefox.
             var _path = clicked.path || (clicked.composedPath && clicked.composedPath());
             if (_path[1].id) {
-                Iframe.src = "./" + jsonData.posts[_path[1].id].filename;
-                Iframe.onload = () => {
-                    adjustFrameHeight(Iframe);
-                }
+                loadIframe(_path[1].id)
             }
-
+    
         }, false);
 
         clickAwayMiddle.addEventListener('click', (clicked) => {
@@ -109,14 +107,18 @@ async function main() {
 /**
  * Function loads the latest blog in the iframe.
  */
-function loadLastBlogPost(jsonData) {
-    document.getElementById('Iframe').src = './' + jsonData.posts[jsonData.posts.length - 1].filename
+function loadLastBlogPost(posts) {
+    const Iframe = document.querySelector("Iframe");
+    if (posts.length !== 0) {
+        loadIframe(posts.length - 1)
+    }
 }
 
-
-function loadIframeWithBlog() {
-    window.location.sear
-    window.location.search = 'param=value'; // or param=new_value
+function loadIframe(postId) {
+    Iframe.src = "../_docs/" + posts[postId].filename;
+    Iframe.onload = () => {
+        adjustFrameHeight(Iframe);
+    } 
 }
 
 /**
@@ -218,6 +220,7 @@ const populateNavbar = (posts, filter = null) => {
     // change the query string
     let queryString = ""
     for (word of keyWords) {
+        word = word.replaceAll(' ', '-');
         queryString += word + ":"
     }
     queryString = queryString.slice(0, queryString.length - 1)
@@ -241,25 +244,29 @@ const populateHeaderLinks = (links, headerLinksContainer) => {
     }
 }
 
+
+function isValidWord(word) {
+    const arr = word.match(/^[\w !-]*$/)
+    return arr != null
+}
+
 /**
  * Function reads the query string and updates the 
  * keyWords array and filter keywords UI.
  */
 const readQueryString = () => {
+    keyWords = []
     const params = new URLSearchParams(window.location.search);
     // checks for valid value of query string param "filter"
-    function isValidWord(word) {
-        const arr = word.match(/^[\w !-]*$/)
-        return arr != null
-    }
     if (params.has('filter')) {
         const wordsStr = params.get('filter')
         const words = wordsStr.split(':')
         // add words to filter
         for (const word of words) {
+            word = word.replace('+', ' ')
             if (isValidWord(word)) {
                 if (keyWords.length <= NUM_KEYWORDS) {
-                    keyWords.push(word.toLowerCase())
+                    keyWords.push(word)
                 } else {
                     alert("No more keywords can be added")
                 }
@@ -379,8 +386,12 @@ function updateKeywords() {
     let text = document.getElementById('filter-search-bar').value
     if (text != "") {
         // Limit the number of keywords to NUM_KEYWORDS.
+        if (!isValidWord(text)) {
+            alert("Invalid keyword") 
+            return
+        }
         if (keyWords.length <= NUM_KEYWORDS) {
-            keyWords.push(text.toLowerCase())
+            keyWords.push(text)
         } else {
             alert("No more keywords can be added")
         }
@@ -392,7 +403,7 @@ function updateKeywords() {
 
 /**
  * Populates div "tags-list" with all the tags in var keywords.
- */
+*/
 function populateFilterTags() {
     // remove all the tags
     document.getElementById("tags-list").innerHTML = ""
@@ -402,7 +413,7 @@ function populateFilterTags() {
         // create a <li> with <span> for close 'X'
         let node = document.createElement("li");
         // limit display of tag to 10 chars
-        let tagNode = document.createTextNode(tag.substring(0, 11).toLowerCase());
+        let tagNode = document.createTextNode(tag.substring(0, 11));
         let span = document.createElement('span');
         span.innerHTML = "&times";
         // Onclick function deletes the keyword and re-populates the tags.
@@ -426,15 +437,16 @@ function populateFilterTags() {
  * @returns Set()
  */
 const filterPosts = () => {
+    filteredPosts = []
     let filterPostsId = new Set();
     if (posts) {
         posts.forEach((post) => {
             // keywords of post
             postKeywords = new Set();
-            postKeywords.add(post.title.toLowerCase());
-            postKeywords.add(post.author.toLowerCase());
+            postKeywords.add(post.title);
+            postKeywords.add(post.author);
             post.tags.forEach((tag) => {
-                postKeywords.add(tag.toLowerCase())
+                postKeywords.add(tag)
             })
             hasAllKeywords = true;
             for (let i = 0; i < keyWords.length; i++) {
@@ -445,9 +457,12 @@ const filterPosts = () => {
             }
             if (hasAllKeywords) {
                 filterPostsId.add(post.id);
+                filteredPosts.push(post)
             }
         })
     }
     // Update the navbar
     populateNavbar(posts, filterPostsId);
+    // Load the last blog post
+    loadLastBlogPost(filteredPosts)
 }

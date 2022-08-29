@@ -33,7 +33,7 @@ const compileAll = async (config) => {
     const date = new Date(); //? Use the same date for all files compiled in the same batch
 
     for (let i = 0; i < compiledContents.length; i++) {
-        //get proper md file. we will need it's meta info
+        // get proper md file. we will need it's meta info
         let currentPostText = (fs.readFileSync(`./docs/${compiledContents[i].path}`));
         currentPostText = currentPostText.toString();
 
@@ -58,11 +58,27 @@ const compileAll = async (config) => {
         // add the user-decided meta data
         try {
             const postMetaInfo = await JSON.parse(currentPostText.substring(currentPostText.indexOf('{'), currentPostText.indexOf('}') + 1)) // cut out the JSON_text meta information
-            objToAppend.title = postMetaInfo.title;
-            objToAppend.author = postMetaInfo.author;
-            objToAppend.tags = postMetaInfo.tags;
+            function isValidWordData(object) {
+                const valid = RegExp(/^[\w !-]*$/)
+                let validTitle = object.title.match(valid) != null
+                let validAuthor = object.author.match(valid) != null
+                let validTags = true
+                for (tag of object.tags) {
+                    const arr = tag.match(valid)
+                    validTags = validTags && arr != null
+                }
+                return validTags && validAuthor && validTitle
+            }
+            if (isValidWordData(postMetaInfo)) {
+                objToAppend.title = postMetaInfo.title;
+                objToAppend.author = postMetaInfo.author;
+                objToAppend.tags = postMetaInfo.tags;
+            } else {
+                throw "Invalid name - only letter, numbers, underscores, spaces, ! and - allowed"
+            }
         } catch (error) {
-            console.error('It is likely that the meta information for ' + objToAppend.filename + 'has not been properly formatted, please look at our templates/metaTagtemplate.md and try again!');
+            console.error('It is likely that the meta information for ' + objToAppend.filename + 
+            ' has not been properly formatted, please look at our templates/metaTagtemplate.md and try again!');
             console.error(error);
             objToAppend.title = "None"
             objToAppend.author = "None"
